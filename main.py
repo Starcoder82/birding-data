@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from bakery import assert_equal
 #Library used to convert a string into a file object
 import io
+
+add_website_file("1.jpg","2.jpg","3.jpg","4.jpg", "5.jpg")
 #Dataclasses
 @dataclass
 class Hotspot:
@@ -191,7 +193,7 @@ def birding_stats(state: State) -> Page:
     #Page that tells the user the total number of species seen in the given data.
     if state.summary == 0:
         state.summary += 1
-        return Page(state,[Header("Total Species:"), Image("./1.jpg",500,500), '\n',
+        return Page(state,[Header("Total Species:"), Image("1.jpg",500,500), '\n',
                            Text("You have seen " + str(len(state.birds)) +
                                                    " species!"),'\n',
                            Button("Next Stat", 'birding_stats')])
@@ -201,7 +203,7 @@ def birding_stats(state: State) -> Page:
         total_birds = 0
         for bird in state.birds:
             total_birds += bird.count
-        return Page(state,[Header("Total Birds:"), Image("./2.jpg",500,500), '\n',
+        return Page(state,[Header("Total Birds:"), Image("2.jpg",500,500), '\n',
                            Text("You have seen " + str(total_birds) +
                                                    " birds!"),"\n",
                            Button("Next Stat", 'birding_stats')])
@@ -212,7 +214,7 @@ def birding_stats(state: State) -> Page:
         for bird in state.birds:
             if bird.count > most_seen.count:
                 most_seen = bird
-        return Page(state,[Header("Most Seen Bird:"), Image("./3.jpg",500,500), '\n',
+        return Page(state,[Header("Most Seen Bird:"), Image("3.jpg",500,500), '\n',
                            Text("You have seen " + str(most_seen.count) +
                             " " + most_seen.species + "! " "\nThis is your most seen bird!"),
                            "\n", Button("Next Stat", 'birding_stats')])
@@ -223,7 +225,7 @@ def birding_stats(state: State) -> Page:
         for hotspot in state.hotspots:
             if hotspot.total > most_birds.total:
                 most_birds = hotspot
-        return Page(state,[Header("Most Birds at a Hotspot:"), Image("./4.jpg",500,500), '\n',
+        return Page(state,[Header("Most Birds at a Hotspot:"), Image("4.jpg",500,500), '\n',
                            Text("You have seen " + str(most_birds.total) +
                             " birds at " + most_birds.name + " in " +
                                 most_birds.location  +
@@ -237,7 +239,7 @@ def birding_stats(state: State) -> Page:
         for hotspot in state.hotspots:
             if len(hotspot.birds_local) > len(most_species.birds_local):
                 most_species = hotspot
-        return Page(state,[Header("Most Species at a Hotspot:"), Image("./5.jpg", 500,500), '\n',
+        return Page(state,[Header("Most Species at a Hotspot:"), Image("5.jpg", 500,500), '\n',
                            Text("You have seen " + str(len(most_species.birds_local)) +
                             " species at " + most_species.name + " in " + most_species.location  +
                                 "!\nThis is the most species you have seen in one spot!"),
@@ -658,5 +660,17 @@ Data2.close()
 Data3.close()
 
 
-#Server Start and set site info
+#Server Start and set site information
+set_site_information("Andy Shiley", """This website takes a .csv file exported from
+eBird (the most popular digital recording system for bird sightings)
+and presents the data to the user.
+Specifically, the site tells the user:
+\nHow many birds they've seen,
+\nHow many species they've seen,
+\nHow many places they've birded,
+\nWhich place they've seen the most birds,
+\nWhich place they've seen the most species,
+\nAlong with an interactive list of All bird species and places the user has been,
+where they can see even more specific statistics.
+""", '','' ,'' )
 start_server(index(State("",'',[],[], [], 0)))
