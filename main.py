@@ -117,8 +117,8 @@ def get_data(state: State, file_raw: str) -> Page:
     state.hotspots = sightings_to_hotspots(state.sightings)
     state.summary = 0
     return Page(state, [Header("My Ebird Data Home"), Button('New Data File', 'reset_data'),
-            Button('View My Birds', 'bird_hub'), Button('View My Hotspots', 'hotspot_hub'),
-            Button('My Birding Summary', 'birding_stats')])
+                        Button('View My Birds', 'bird_hub'), Button('View My Hotspots', 'hotspot_hub'),
+                        Button('My Birding Summary', 'birding_stats')])
 
 @route
 def reset_data(state: State) -> Page:
@@ -152,9 +152,9 @@ def bird_hub(state: State) -> Page:
         buttons.append(Button(bird.species, 'bird', [Argument('species', bird.species)]))
     
     return Page(state,[Header('Your Birds:'), Text("You have seen " + str(len(state.birds)) +
-                    " species!"), '\nSearch For a Bird:\n', TextBox('species'),
-                    Button('Search', 'bird'), BulletedList(buttons), '\n',
-                    Button('Home', 'get_data', [Argument("file_raw", state.file_raw)])])
+                                " species!"), '\nSearch For a Bird:\n', TextBox('species'),
+                                Button('Search', 'bird'), BulletedList(buttons), '\n',
+                                Button('Home', 'get_data', [Argument("file_raw", state.file_raw)])])
 
 @route
 def hotspot_hub(state: State) -> Page:
@@ -170,9 +170,9 @@ def hotspot_hub(state: State) -> Page:
     for hotspot in state.hotspots:
         buttons.append(Button(hotspot.name, 'hotspot', [Argument('name', hotspot.name)]))
     return Page(state, [Header('Your Hotspots:'), Text("You have been to " + str(len(state.hotspots)) +
-                         " hotspots!"), '\nSearch For a Hotspot:\n', TextBox('name'),
-                         Button('Search', 'hotspot'),BulletedList(buttons), '\n',
-                        Button('Home', 'get_data', [Argument("file_raw", state.file_raw)]) ])
+                                    " hotspots!"), '\nSearch For a Hotspot:\n', TextBox('name'),
+                                    Button('Search', 'hotspot'),BulletedList(buttons), '\n',
+                                    Button('Home', 'get_data', [Argument("file_raw", state.file_raw)]) ])
 
 @route
 def birding_stats(state: State) -> Page:
@@ -191,7 +191,7 @@ def birding_stats(state: State) -> Page:
     #Page that tells the user the total number of species seen in the given data.
     if state.summary == 0:
         state.summary += 1
-        return Page(state,[Header("Total Species:"), Image("1.jpg",500,500), '\n',
+        return Page(state,[Header("Total Species:"), Image("./1.jpg",500,500), '\n',
                            Text("You have seen " + str(len(state.birds)) +
                                                    " species!"),'\n',
                            Button("Next Stat", 'birding_stats')])
@@ -201,7 +201,7 @@ def birding_stats(state: State) -> Page:
         total_birds = 0
         for bird in state.birds:
             total_birds += bird.count
-        return Page(state,[Header("Total Birds:"), Image("2.jpg",500,500), '\n',
+        return Page(state,[Header("Total Birds:"), Image("./2.jpg",500,500), '\n',
                            Text("You have seen " + str(total_birds) +
                                                    " birds!"),"\n",
                            Button("Next Stat", 'birding_stats')])
@@ -212,7 +212,7 @@ def birding_stats(state: State) -> Page:
         for bird in state.birds:
             if bird.count > most_seen.count:
                 most_seen = bird
-        return Page(state,[Header("Most Seen Bird:"), Image("3.jpg",500,500), '\n',
+        return Page(state,[Header("Most Seen Bird:"), Image("./3.jpg",500,500), '\n',
                            Text("You have seen " + str(most_seen.count) +
                             " " + most_seen.species + "! " "\nThis is your most seen bird!"),
                            "\n", Button("Next Stat", 'birding_stats')])
@@ -223,7 +223,7 @@ def birding_stats(state: State) -> Page:
         for hotspot in state.hotspots:
             if hotspot.total > most_birds.total:
                 most_birds = hotspot
-        return Page(state,[Header("Most Birds at a Hotspot:"), Image("4.jpg",500,500), '\n',
+        return Page(state,[Header("Most Birds at a Hotspot:"), Image("./4.jpg",500,500), '\n',
                            Text("You have seen " + str(most_birds.total) +
                             " birds at " + most_birds.name + " in " +
                                 most_birds.location  +
@@ -237,7 +237,7 @@ def birding_stats(state: State) -> Page:
         for hotspot in state.hotspots:
             if len(hotspot.birds_local) > len(most_species.birds_local):
                 most_species = hotspot
-        return Page(state,[Header("Most Species at a Hotspot:"), Image("5.jpg", 500,500), '\n',
+        return Page(state,[Header("Most Species at a Hotspot:"), Image("./5.jpg", 500,500), '\n',
                            Text("You have seen " + str(len(most_species.birds_local)) +
                             " species at " + most_species.name + " in " + most_species.location  +
                                 "!\nThis is the most species you have seen in one spot!"),
@@ -658,5 +658,5 @@ Data2.close()
 Data3.close()
 
 
-#Server Start
+#Server Start and set site info
 start_server(index(State("",'',[],[], [], 0)))
