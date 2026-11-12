@@ -5,6 +5,7 @@ from bakery import assert_equal
 #Library used to convert a string into a file object
 import io
 
+
 add_website_file("1.jpg","2.jpg","3.jpg","4.jpg", "5.jpg")
 #Dataclasses
 @dataclass
@@ -664,13 +665,7 @@ Data3.close()
 set_site_information("Andy Shiley", """This website takes a .csv file exported from
 eBird (the most popular digital recording system for bird sightings)
 and presents the data to the user.
-Specifically, the site tells the user:
-\nHow many birds they've seen,
-\nHow many species they've seen,
-\nHow many places they've birded,
-\nWhich place they've seen the most birds,
-\nWhich place they've seen the most species,
-\nAlong with an interactive list of All bird species and places the user has been,
-where they can see even more specific statistics.
-""", '','' ,'' )
+""", 'Photos taken by Andy Shiley, data sourced from https://ebird.org',
+                     'See Planning Documents.pdf in repository' ,
+                     ['https://github.com/Starcoder82/birding-data'] )
 start_server(index(State("",'',[],[], [], 0)))
